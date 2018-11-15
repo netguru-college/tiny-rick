@@ -1,0 +1,27 @@
+@import 'typography';
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background-image: $c-bg;
+  background-repeat: no-repeat;
+  color: $c-text-light;
+  font-family: $ff-base;
+}
+
+button {
+  background: none;
+  border: 0;
+  outline: none;
+  padding: 0;
+  color: currentColor;
+}
+
+a {
+  text-decoration: none;
+  color: currentColor;
+}

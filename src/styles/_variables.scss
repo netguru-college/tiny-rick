@@ -1,0 +1,19 @@
+// Colors
+$c-bg-start: #2B5876;
+$c-bg-end: #4E4376;
+$c-bg: linear-gradient($c-bg-start, $c-bg-end);
+
+$c-header-bg: #294764;
+
+$c-text-primary: #000;
+$c-text-secondary: #777;
+$c-text-placeholder: #C3C3C3;
+$c-text-light: #FFF;
+
+$c-green: #00DBAA;
+$c-blue: #3E97C1;
+
+$c-primary: $c-green;
+
+// Typography
+$ff-base: 'Source Sans Pro', sans-serif;
