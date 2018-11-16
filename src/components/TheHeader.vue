@@ -29,18 +29,6 @@
       </router-link>
       <router-link
         class="nav-link"
-        to="/characters"
-      >
-        Characters
-      </router-link>
-      <router-link
-        class="nav-link"
-        to="/locations"
-      >
-        Locations
-      </router-link>
-      <router-link
-        class="nav-link"
         to="/quiz"
       >
         Quiz
@@ -83,6 +71,7 @@ export default {
   right: 0;
   height: 70px;
   display: flex;
+  z-index: 100;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
@@ -106,7 +95,7 @@ export default {
     width: 24px;
   }
 
-  @media #{$desktop-up} {
+  @media #{$tablet-up} {
     display: none;
   }
 }
@@ -120,17 +109,17 @@ export default {
     display: flex;
   }
 
-  @media #{$tablet-down} {
+  @media #{$mobile-down} {
     position: fixed;
     top: 70px;
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.7);
     flex-direction: column;
   }
 
-  @media #{$desktop-up} {
+  @media #{$tablet-up} {
     display: flex;
   }
 }
@@ -146,7 +135,7 @@ export default {
     border-radius: 12px;
   }
 
-  @media #{$desktop-up} {
+  @media #{$tablet-up} {
     margin: 0 0 0 5px;
     padding: 8px 20px;
     font-size: 15px;
