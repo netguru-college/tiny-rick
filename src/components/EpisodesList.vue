@@ -14,9 +14,11 @@
     <template v-else>
       <li
         v-for="episode in episodes"
-        :key="episode.episode"
+        :key="episode.id"
       >
-        <slot :episode="episode" />
+        <router-link :to="{ name: 'episode', params: { id: episode.id } }">
+          <slot :episode="episode" />
+        </router-link>
       </li>
     </template>
   </ul>
@@ -38,9 +40,23 @@ export default {
 
 <style scoped lang="scss">
 .episodes-list {
+  @media #{$tablet-up} {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   li {
     display: block;
     margin-bottom: 15px;
+
+    @media #{$tablet-up} {
+      flex-basis: 50%;
+      padding: 0 7.5px;
+    }
+
+    @media #{$desktop-up} {
+      flex-basis: 33.333%;
+    }
   }
 }
 

@@ -1,14 +1,12 @@
 <template>
-  <a
-    href="#"
-    class="episode"
-  >
-    <h3 class="episode-num">Episode {{ episodeData.episodeNum }}</h3>
-    <h2 class="episode-name">{{ name }}</h2>
-    <span class="episode-season">
+  <div class="episode-item">
+    <h3 class="episode-item__num">Episode {{ episodeData.episodeNum }}</h3>
+    <h2 class="episode-item__name">{{ name }}</h2>
+    <span class="episode-item__season-badge">
       Season {{ episodeData.season }}
     </span>
-  </a>
+    <slot />
+  </div>
 </template>
 
 <script>
@@ -41,36 +39,36 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.episode {
+.episode-item {
   display: block;
   position: relative;
   padding: 15px 12px;
   background: #fff;
   border-radius: 15px;
   color: $c-text-primary;
-}
 
-.episode-num,
-.episode-name {
-  margin: 0;
-  font-weight: normal;
-  font-size: 18px;
-}
+  &__num,
+  &__name {
+    margin: 0;
+    font-weight: normal;
+    font-size: 18px;
+  }
 
-.episode-name {
-  color: $c-text-secondary;
-}
+  &__name {
+    color: $c-text-secondary;
+  }
 
-.episode-season {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  margin: auto;
-  background-color: $c-green;
-  color: #fff;
-  border-radius: 15px;
-  padding: 4px 10px;
-  font-size: 12px;
-  text-transform: uppercase;
+  &__season-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    margin: auto;
+    background-color: $c-green;
+    color: #fff;
+    border-radius: 15px;
+    padding: 4px 10px;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
 }
 </style>

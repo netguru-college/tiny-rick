@@ -1,11 +1,10 @@
 <template>
   <div
     v-infinite-scroll="loadEpisodes"
-    class="page"
     infinite-scroll-disabled="isLoadingMoreDisabled"
-    infinite-scroll-distance="10"
+    infinite-scroll-distance="100"
   >
-    <h1 class="page-title">Episodes</h1>
+    <h1 class="episodes-title">Episodes</h1>
 
     <div class="search">
       <SearchIcon class="search-icon" />
@@ -21,14 +20,17 @@
       :episodes="episodes"
       :is-loading="isInitiallyLoading"
     >
-      <EpisodesListItem
+      <EpisodeItem
         slot-scope="{ episode }"
         :episode="episode.episode"
         :name="episode.name"
       />
     </EpisodesList>
 
-    <div v-if="!isLoadingMoreDisabled">
+    <div
+      v-if="!isLoadingMoreDisabled"
+      class="infinite-loader"
+    >
       Loading more
     </div>
   </div>
@@ -36,7 +38,7 @@
 
 <script>
 import EpisodesList from '@/components/EpisodesList';
-import EpisodesListItem from '@/components/EpisodesListItem';
+import EpisodeItem from '@/components/EpisodeItem';
 import SearchIcon from '@/assets/icon-search.svg';
 import { fetchEpisodes } from '@/api';
 import debounce from 'lodash.debounce';
@@ -44,7 +46,7 @@ import debounce from 'lodash.debounce';
 export default {
   components: {
     EpisodesList,
-    EpisodesListItem,
+    EpisodeItem,
     SearchIcon,
   },
 
@@ -99,12 +101,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.episodes-title {
+  @media #{$tablet-up} {
+    text-align: center;
+  }
+}
+
 .search {
   display: flex;
-  margin: 0 0 30px 0;
+  margin: 0 auto 30px;
   padding: 10px 0;
   align-items: center;
   border-bottom: 1px solid #fff;
+
+  @media #{$tablet-up} {
+    max-width: 340px;
+  }
 }
 
 .search-icon {
@@ -125,5 +137,10 @@ export default {
     color: currentColor;
     opacity: 0.7;
   }
+}
+
+.infinite-loader {
+  text-align: center;
+  margin: 30px 0;
 }
 </style>

@@ -22,7 +22,8 @@ export default {
 
 <style scoped lang="scss">
 .main {
-  margin-top: 70px;
-  padding: 30px 15px 0;
+  margin: 70px auto 0;
+  padding: 30px 15px;
+  max-width: 1110px;
 }
 </style>
