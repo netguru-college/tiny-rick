@@ -1,8 +1,5 @@
 <template>
-  <div v-if="isLoading">
-    Loading
-  </div>
-  <div v-else>
+  <div v-if="episode">
     <header class="episode__header">
       <h1>Episode</h1>
 
@@ -26,21 +23,31 @@
         <h2>Characters</h2>
 
         <div class="characters-list">
-          <CharacterItem
-            v-for="character in visibleCharacters"
-            :key="character.id"
-            :character="character"
-          />
+          <transition-group
+            name="fade-up"
+            appear
+          >
+            <CharacterItem
+              v-for="character in visibleCharacters"
+              :key="character.id"
+              :character="character"
+            />
+          </transition-group>
         </div>
 
-        <div class="link-container">
-          <button
-            class="primary-link is-big"
-            @click="toggleAllCharacters"
+        <transition name="fade-up">
+          <div
+            v-if="visibleCharacters.length"
+            class="link-container"
           >
-            {{ showAllCharacters ? 'Show less' : 'Show more' }}
-          </button>
-        </div>
+            <button
+              class="primary-link is-big"
+              @click="toggleAllCharacters"
+            >
+              {{ showAllCharacters ? 'Show less' : 'Show more' }}
+            </button>
+          </div>
+        </transition>
       </div>
 
       <div class="episode__right-col">
@@ -146,9 +153,8 @@ export default {
 
     async postComment(comment) {
       try {
-        this.comments = [comment, ...this.comments];
         const newComment = await postComment(this.id, comment);
-        this.$set(this.comments, 0, newComment); // lazy update
+        this.comments = [newComment, ...this.comments];
       } catch (error) {
         const [, comments] = this.comments;
         this.comments = comments;

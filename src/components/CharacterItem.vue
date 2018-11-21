@@ -1,6 +1,5 @@
 <template>
   <BaseItem
-    :key="character.id"
     :img="character.image"
     :title="character.name"
     :subtitle="characterInfo"

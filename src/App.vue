@@ -2,7 +2,12 @@
   <div id="app">
     <TheHeader />
     <main class="main">
-      <router-view />
+      <transition
+        name="fade"
+        mode="out-in"
+      >
+        <router-view />
+      </transition>
     </main>
   </div>
 </template>

@@ -19,14 +19,18 @@
         </button>
       </div>
     </form>
-    <BaseItem
-      v-for="comment in comments"
-      :key="comment.date"
-      :title="comment.author"
-      :subtitle="comment.created | time-ago"
+    <transition-group
+      name="fade-up"
     >
-      {{ comment.content }}
-    </BaseItem>
+      <BaseItem
+        v-for="comment in comments"
+        :key="comment.id"
+        :title="comment.author"
+        :subtitle="comment.created | time-ago"
+      >
+        {{ comment.content }}
+      </BaseItem>
+    </transition-group>
   </div>
 </template>
 

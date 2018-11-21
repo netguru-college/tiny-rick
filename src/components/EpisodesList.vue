@@ -1,5 +1,9 @@
 <template>
-  <ul class="episodes-list">
+  <transition-group
+    name="fade"
+    class="episodes-list"
+    tag="ul"
+  >
     <template v-if="isLoading">
       <li
         v-for="i in 6"
@@ -20,7 +24,7 @@
         </router-link>
       </li>
     </template>
-  </ul>
+  </transition-group>
 </template>
 
 <script>
@@ -60,7 +64,7 @@ export default {
 }
 
 .fake-item {
-  padding: 15px 50% 15px 15px;
+  padding: 18px 50% 18px 15px;
   background: #fff;
   border-radius: 15px;
 
