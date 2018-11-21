@@ -1,7 +1,7 @@
 <template>
   <transition-group
     name="fade"
-    class="episodes-list"
+    class="episodes__list"
     tag="ul"
   >
     <template v-if="isLoading">
@@ -9,7 +9,7 @@
         v-for="i in 6"
         :key="i"
       >
-        <content-placeholders class="fake-item">
+        <content-placeholders class="episodes__fake-item">
           <content-placeholders-heading />
         </content-placeholders>
       </li>
@@ -40,36 +40,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-.episodes-list {
-  @media #{$tablet-up} {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  li {
-    display: block;
-    margin-bottom: 15px;
-
-    @media #{$tablet-up} {
-      flex-basis: 50%;
-      padding: 0 7.5px;
-    }
-
-    @media #{$desktop-up} {
-      flex-basis: 33.333%;
-    }
-  }
-}
-
-.fake-item {
-  padding: 18px 50% 18px 15px;
-  background: #fff;
-  border-radius: 15px;
-
-  @media #{$tablet-up} {
-    padding-right: 30%;
-  }
-}
-</style>

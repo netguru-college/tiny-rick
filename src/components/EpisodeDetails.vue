@@ -36,21 +36,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss">
-  .episode-details {
-    margin-bottom: 20px;
-
-    &__info {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid $c-border;
-    }
-
-    &__value {
-      color: $c-text-secondary;
-    }
-  }
-</style>

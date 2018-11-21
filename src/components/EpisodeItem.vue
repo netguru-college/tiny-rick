@@ -37,38 +37,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-.episode-item {
-  display: block;
-  position: relative;
-  padding: 15px 12px;
-  background: #fff;
-  border-radius: 15px;
-  color: $c-text-primary;
-
-  &__num,
-  &__name {
-    margin: 0;
-    font-weight: normal;
-    font-size: 18px;
-  }
-
-  &__name {
-    color: $c-text-secondary;
-  }
-
-  &__season-badge {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    margin: auto;
-    background-color: $c-green;
-    color: #fff;
-    border-radius: 15px;
-    padding: 4px 10px;
-    font-size: 12px;
-    text-transform: uppercase;
-  }
-}
-</style>

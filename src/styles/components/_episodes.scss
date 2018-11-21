@@ -1,0 +1,77 @@
+.episodes {
+  &__title {
+    @media #{$tablet-up} {
+      text-align: center;
+    }
+  }
+
+  &__search {
+    display: flex;
+    margin: 0 auto 30px;
+    padding: 10px 0;
+    align-items: center;
+    border-bottom: 1px solid #fff;
+
+    @media #{$tablet-up} {
+      max-width: 340px;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    input {
+      flex: 1;
+      background: none;
+      padding: 5px 15px;
+      border: 0;
+      color: #fff;
+      outline: none;
+      font-size: 16px;
+
+      &::placeholder {
+        color: currentColor;
+        opacity: 0.7;
+      }
+    }
+  }
+
+  &__loader {
+    text-align: center;
+    margin: 30px 0;
+  }
+
+  &__list {
+    @media #{$tablet-up} {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    li {
+      display: block;
+      margin-bottom: 15px;
+
+      @media #{$tablet-up} {
+        flex-basis: 50%;
+        padding: 0 7.5px;
+      }
+
+      @media #{$desktop-up} {
+        flex-basis: 33.333%;
+      }
+    }
+  }
+
+  &__fake-item {
+    padding: 18px 50% 18px 15px;
+    background: #fff;
+    border-radius: 15px;
+
+    @media #{$tablet-up} {
+      padding-right: 30%;
+    }
+  }
+}
+
+

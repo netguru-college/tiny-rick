@@ -1,6 +1,3 @@
-@import 'typography';
-@import 'transitions';
-
 html,
 body {
   min-height: 100%;
@@ -35,32 +32,4 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-.go-back-link {
-  display: inline-flex;
-  align-items: center;
-  margin: 0 0 15px;
-  font-size: 16px;
-
-  svg {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-  }
-}
-
-.primary-link {
-  color: $c-primary;
-  text-decoration: underline;
-  font-size: 12px;
-
-  &.is-big {
-    font-size: 16px;
-  }
-}
-
-.link-container {
-  margin: 15px 0;
-  text-align: center;
 }

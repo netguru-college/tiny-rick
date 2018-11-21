@@ -164,26 +164,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss">
-  .episode {
-    &__content {
-      @media #{$tablet-up} {
-        display: flex;
-      }
-    }
-
-    &__left-col {
-      @media #{$tablet-up} {
-        width: 340px;
-        margin-right: 20px;
-      }
-    }
-
-    &__right-col {
-      @media #{$tablet-up} {
-        flex: 1;
-      }
-    }
-  }
-</style>

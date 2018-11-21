@@ -3,13 +3,13 @@
     v-infinite-scroll="loadEpisodes"
     infinite-scroll-disabled="isLoadingMoreDisabled"
     infinite-scroll-distance="100"
+    class="episodes"
   >
-    <h1 class="episodes-title">Episodes</h1>
+    <h1 class="episodes__title">Episodes</h1>
 
-    <div class="search">
-      <SearchIcon class="search-icon" />
+    <div class="episodes__search">
+      <SearchIcon />
       <input
-        class="search-input"
         type="text"
         placeholder="Search"
         @input="search($event.target.value)"
@@ -29,7 +29,7 @@
 
     <div
       v-if="!isLoadingMoreDisabled"
-      class="infinite-loader"
+      class="episodes__loader"
     >
       Loading more
     </div>
@@ -99,48 +99,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-.episodes-title {
-  @media #{$tablet-up} {
-    text-align: center;
-  }
-}
-
-.search {
-  display: flex;
-  margin: 0 auto 30px;
-  padding: 10px 0;
-  align-items: center;
-  border-bottom: 1px solid #fff;
-
-  @media #{$tablet-up} {
-    max-width: 340px;
-  }
-}
-
-.search-icon {
-  width: 24px;
-  height: 24px;
-}
-
-.search-input {
-  flex: 1;
-  background: none;
-  padding: 5px 15px;
-  border: 0;
-  color: #fff;
-  outline: none;
-  font-size: 16px;
-
-  &::placeholder {
-    color: currentColor;
-    opacity: 0.7;
-  }
-}
-
-.infinite-loader {
-  text-align: center;
-  margin: 30px 0;
-}
-</style>

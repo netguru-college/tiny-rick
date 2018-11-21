@@ -2,13 +2,13 @@
   <header class="header">
     <router-link
       to="/"
-      class="logo"
+      class="header__logo"
     >
       <Logo />
     </router-link>
 
     <button
-      class="nav-trigger"
+      class="header__nav-trigger"
       @click="toggleNav"
     >
       <CloseIcon v-if="isNavVisible" />
@@ -16,19 +16,19 @@
     </button>
 
     <nav
-      class="nav"
+      class="header__nav"
       :class="{
         'is-visible': isNavVisible
       }"
     >
       <router-link
-        class="nav-link"
+        class="header__nav-link"
         to="/"
       >
         Episodes
       </router-link>
       <router-link
-        class="nav-link"
+        class="header__nav-link"
         to="/quiz"
       >
         Quiz
@@ -62,83 +62,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss">
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 70px;
-  display: flex;
-  z-index: 100;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  background-color: $c-header-bg;
-}
-
-.logo {
-  width: 50px;
-  display: block;
-}
-
-.nav-trigger {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-
-  svg {
-    width: 24px;
-  }
-
-  @media #{$tablet-up} {
-    display: none;
-  }
-}
-
-.nav {
-  display: none;
-  justify-content: center;
-  align-items: center;
-
-  &.is-visible {
-    display: flex;
-  }
-
-  @media #{$mobile-down} {
-    position: fixed;
-    top: 70px;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    flex-direction: column;
-  }
-
-  @media #{$tablet-up} {
-    display: flex;
-  }
-}
-
-.nav-link {
-  margin: 15px 0;
-  padding: 10px 25px;
-  text-transform: uppercase;
-  font-size: 20px;
-
-  &.router-link-exact-active {
-    background-color: $c-primary;
-    border-radius: 12px;
-  }
-
-  @media #{$tablet-up} {
-    margin: 0 0 0 5px;
-    padding: 8px 20px;
-    font-size: 15px;
-  }
-}
-</style>
