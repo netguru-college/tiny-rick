@@ -1,4 +1,8 @@
 module.exports = {
+  baseUrl: process.env.NODE_ENV === 'production'
+    ? '/tiny-rick/'
+    : '/',
+
   css: {
     loaderOptions: {
       sass: {
