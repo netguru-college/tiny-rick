@@ -17,17 +17,11 @@
 
     <div class="episode__content">
       <div class="episode__left-col">
-        <div class="episode-details-container">
-          <EpisodeItem
-            :episode="episode.episode"
-            :name="episode.name"
-          >
-            <div class="episode-details">
-              <span class="episode-details__label">Air date</span>
-              <span class="episode-details__value">{{ episode.air_date }}</span>
-            </div>
-          </EpisodeItem>
-        </div>
+        <EpisodeDetails
+          :episode="episode.episode"
+          :name="episode.name"
+          :air-date="episode.air_date"
+        />
 
         <h2>Characters</h2>
 
@@ -52,25 +46,19 @@
       <div class="episode__right-col">
         <h2>Comments</h2>
 
-        <div class="comments-list">
-          <BaseItem
-            v-for="comment in comments"
-            :key="comment.date"
-            :title="comment.author"
-            :subtitle="comment.date"
-          >
-            {{ comment.content }}
-          </BaseItem>
-        </div>
+        <EpisodeComments
+          :comments="comments"
+          @postComment="postComment"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import EpisodeItem from '@/components/EpisodeItem';
+import EpisodeDetails from '@/components/EpisodeDetails';
+import EpisodeComments from '@/components/EpisodeComments';
 import CharacterItem from '@/components/CharacterItem';
-import BaseItem from '@/components/BaseItem';
 import ArrowLeftIcon from '@/assets/icon-arrow-left.svg';
 import { fetchEpisode, fetchCharacter } from '@/api';
 
@@ -89,8 +77,8 @@ const comments = [
 
 export default {
   components: {
-    EpisodeItem,
-    BaseItem,
+    EpisodeDetails,
+    EpisodeComments,
     CharacterItem,
     ArrowLeftIcon,
   },
@@ -152,6 +140,10 @@ export default {
 
     toggleAllCharacters() {
       this.showAllCharacters = !this.showAllCharacters;
+    },
+
+    postComment(comment) {
+      console.log('post!', comment);
     }
   },
 };
@@ -176,22 +168,6 @@ export default {
       @media #{$tablet-up} {
         flex: 1;
       }
-    }
-  }
-
-  .episode-details {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid $c-border;
-
-    &-container {
-      margin-bottom: 20px;
-    }
-
-    &__value {
-      color: $c-text-secondary;
     }
   }
 </style>
