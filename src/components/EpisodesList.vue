@@ -4,9 +4,8 @@
       <li
         v-for="i in 6"
         :key="i"
-        class="fake-item"
       >
-        <content-placeholders>
+        <content-placeholders class="fake-item">
           <content-placeholders-heading />
         </content-placeholders>
       </li>
@@ -64,5 +63,9 @@ export default {
   padding: 15px 50% 15px 15px;
   background: #fff;
   border-radius: 15px;
+
+  @media #{$tablet-up} {
+    padding-right: 30%;
+  }
 }
 </style>

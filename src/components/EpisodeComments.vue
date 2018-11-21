@@ -23,7 +23,7 @@
       v-for="comment in comments"
       :key="comment.date"
       :title="comment.author"
-      :subtitle="comment.date"
+      :subtitle="comment.created | time-ago"
     >
       {{ comment.content }}
     </BaseItem>

@@ -60,20 +60,12 @@ import EpisodeDetails from '@/components/EpisodeDetails';
 import EpisodeComments from '@/components/EpisodeComments';
 import CharacterItem from '@/components/CharacterItem';
 import ArrowLeftIcon from '@/assets/icon-arrow-left.svg';
-import { fetchEpisode, fetchCharacter } from '@/api';
-
-const comments = [
-  {
-    author: 'Jon Snow',
-    date: 'Tue Nov 20 2018 12:45:24 GMT+0100 (Central European Standard Time)',
-    content: 'Lorem ipsum dolor sit amet',
-  },
-  {
-    author: 'Emma Watson',
-    date: 'Tue Nov 20 2018 12:46:30 GMT+0100 (Central European Standard Time)',
-    content: 'Lorem ipsum dolor sit amet',
-  },
-];
+import {
+  fetchEpisode,
+  fetchCharacter,
+  fetchComments,
+  postComment,
+} from '@/api';
 
 export default {
   components: {
@@ -96,7 +88,7 @@ export default {
       episode: null,
       characters: [],
       showAllCharacters: false,
-      comments,
+      comments: [],
     };
   },
 
@@ -119,10 +111,11 @@ export default {
         this.isLoading = false;
 
         const characters = this.episode.characters.map(link =>
-          link.replace('https://rickandmortyapi.com/api/character/', '')
+          link.split('/').slice(-1)[0]
         );
 
         await this.loadCharacters(characters);
+        await this.loadComments(id);
       } catch (error) {
         this.isLoading = false;
         console.error(error);
@@ -138,12 +131,29 @@ export default {
       }
     },
 
+    async loadComments(episodeId) {
+      try {
+        const { results } = await fetchComments(episodeId);
+        this.comments = results;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
     toggleAllCharacters() {
       this.showAllCharacters = !this.showAllCharacters;
     },
 
-    postComment(comment) {
-      console.log('post!', comment);
+    async postComment(comment) {
+      try {
+        this.comments = [comment, ...this.comments];
+        const newComment = await postComment(this.id, comment);
+        this.$set(this.comments, 0, newComment); // lazy update
+      } catch (error) {
+        const [, comments] = this.comments;
+        this.comments = comments;
+        console.error(error);
+      }
     }
   },
 };

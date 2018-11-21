@@ -10,6 +10,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "date-fns": "^1.29.0",
     "lodash.debounce": "^4.0.8",
     "vue": "^2.5.17",
     "vue-content-placeholders": "^0.2.1",
