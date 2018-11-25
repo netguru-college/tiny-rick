@@ -1,13 +1,20 @@
 <template>
   <div class="quiz">
-    <QuizStart v-if="step === 0" />
+    <QuizStart
+      v-if="step === 0"
+      :startQuiz="startQuiz"
+    />
     <form v-else-if="areQuestionsVisible">
       <QuizQuestion
         v-for="question in questions"
         :key="question.id"
       />
     </form>
-    <QuizResult v-else :result="result" />
+    <QuizResult
+      v-else
+      :result="result"
+      :goToStart="goToStart"
+    />
   </div>
 </template>
 
@@ -25,7 +32,7 @@ export default {
 
   data() {
     return {
-      step: 1,
+      step: 0,
       questions: [],
       result: { // for test
         name: 'Morty',
@@ -40,5 +47,17 @@ export default {
     },
   },
 
+  methods: {
+    startQuiz() {
+      this.step = 1;
+    },
+    goToStart() {
+      this.step = 0;
+      this.result = {
+        name: '',
+        img: '',
+      };
+    },
+  },
 };
 </script>

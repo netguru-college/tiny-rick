@@ -9,8 +9,15 @@
         <h2>Find out which character from the series you are</h2>
       </header>
       <div class="quiz__buttons">
-        <button class=" quiz__button--primary quiz__button--action">Start again</button>
-        <button class="quiz__button--secondary quiz__button--action">Back to home</button>
+        <button
+          class=" quiz__button--primary quiz__button--action"
+          @click="goToStart"
+        >
+          Start again
+        </button>
+        <router-link to="/">
+          <button class="quiz__button--secondary quiz__button--action">Back to home</button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -23,13 +30,18 @@ export default {
       type: Object,
       required: true,
     },
+    goToStart: {
+      type: Function,
+      required: true,
+    },
   },
+
   computed: {
     imageBoxStyle() {
       return {
         backgroundImage: `url(${this.result.img})`
-      }
-    }
-  }
+      };
+    },
+  },
 };
 </script>
