@@ -49,6 +49,16 @@
     @include image-box(1);
   }
 
+  &__image-box--form {
+    display: none;
+
+    @media #{$desktop-up} {
+      display: block;
+      @include image-box(1);
+      background-image: url('../assets/quiz-start.png');
+    }
+  }
+
   &__text-box {
     display: flex;
     flex-direction: column;
@@ -111,5 +121,84 @@
 
   &__button--action {
     text-transform: uppercase;
+  }
+
+  &__form {
+    height: 100%;
+    width: 100%;
+    min-width: 300px;
+  }
+
+  &__question-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+  }
+
+  &__question-info {
+    width: 100%;
+    text-align: center;
+  }
+
+  &__step {
+    color: $c-text-placeholder;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  &__wizard {
+    position: relative;
+    display: flex;
+    height: 25px;
+    width: 100%;
+    margin-bottom: 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background-color: #fff;
+    overflow: hidden;
+  }
+
+  &__wizard-text {
+    color: $c-text-primary;
+    z-index: 1;
+  }
+
+  &__wizard--inner {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: $c-green;
+    border-radius: inherit;
+  }
+
+  &__question {
+    font-size: 30px;
+  }
+
+  &__answers {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  &__answer--text {
+    @extend %button;
+  }
+
+  &__answer--select {
+    width: 100%;
+    margin: 15px 0;
+    padding: 15px 10px 15px 0;
+    border-radius: 15px;
+    background-color: $c-green;
+    color: #fff;
+    cursor: pointer;
+
+    input {
+      visibility: hidden;
+    }
   }
 }

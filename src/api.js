@@ -40,3 +40,8 @@ export const postComment = (episodeId, comment) => {
   })
     .then(data => data.json());
 }
+
+export const fetchQuestions = () => {
+  return fetch(`${API_URL}/questions`)
+    .then(data => data.json());
+};

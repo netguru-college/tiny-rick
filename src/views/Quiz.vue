@@ -2,41 +2,43 @@
   <div class="quiz">
     <QuizStart
       v-if="step === 0"
-      :startQuiz="startQuiz"
+      :start-quiz="startQuiz"
     />
-    <form v-else-if="areQuestionsVisible">
-      <QuizQuestion
-        v-for="question in questions"
-        :key="question.id"
-      />
-    </form>
+    <QuizForm
+      v-else-if="areQuestionsVisible"
+      :step="step"
+      :questions="questions"
+      :go-to-next-step="goToNextStep"
+    />
     <QuizResult
       v-else
       :result="result"
-      :goToStart="goToStart"
+      :go-to-start="goToStart"
     />
   </div>
 </template>
 
 <script>
-import QuizStart from '../components/QuizStart';
-import QuizQuestion from '../components/QuizQuestion';
-import QuizResult from '../components/QuizResult';
+import QuizStart from '@/components/QuizStart';
+import QuizForm from '@/components/QuizmForm';
+import QuizResult from '@/components/QuizResult';
+import { fetchQuestions } from '@/api';
+import { QUESTIONS } from '@/constants';
 
 export default {
   components: {
     QuizStart,
-    QuizQuestion,
+    QuizForm,
     QuizResult,
   },
 
   data() {
     return {
       step: 0,
-      questions: [],
-      result: { // for test
-        name: 'Morty',
-        img: 'https://rickandmortyapi.com/api/character/avatar/3.jpeg',
+      questions: QUESTIONS,
+      result: {
+        name: '',
+        img: '',
       },
     };
   },
@@ -48,9 +50,28 @@ export default {
   },
 
   methods: {
+    // async loadQuestions() {
+    //   try {
+    //     const { questions } = await fetchQuestions();
+    //     this.questions = questions || [];
+    //   } catch (error) {
+    //     this.questions = [];
+    //     console.error(error);
+    //   }
+    // },
+
     startQuiz() {
       this.step = 1;
     },
+
+    goToNextStep() {
+      if (this.step < this.questions.length) {
+        this.step += 1;
+      } else {
+        this.submitForm();
+      }
+    },
+
     goToStart() {
       this.step = 0;
       this.result = {
@@ -58,6 +79,10 @@ export default {
         img: '',
       };
     },
+
+    submitForm() {
+      console.log('submitForm');
+    }
   },
 };
 </script>

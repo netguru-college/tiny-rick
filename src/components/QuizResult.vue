@@ -2,7 +2,8 @@
   <div class="quiz__container">
     <div
       class="quiz__image-box--result"
-      :style="imageBoxStyle" />
+      :style="imageBoxStyle"
+    />
     <div class="quiz__text-box">
       <header class="quiz__header">
         <h1 class="quiz__character-name">{{ result.name }}</h1>
