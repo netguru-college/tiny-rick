@@ -1,7 +1,20 @@
+@mixin image-box($flex) {
+  flex: $flex;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 15px 15px 0 0;
+
+  @media #{$desktop-up} {
+    flex: 1;
+    border-radius: 15px 0 0 15px;
+  }
+}
+
 .quiz {
   position: absolute;
   top: $h-header;
-  bottom: $h-header;
+  bottom: 0;
   left: 0;
   right: 0;
   display: flex;
@@ -9,6 +22,10 @@
   justify-content: center;
   width: 100%;
   padding: 15px;
+
+  @media #{$tablet-up} {
+    padding: 15px 40px;;
+  }
 
   &__container {
     height: 100%;
@@ -23,17 +40,13 @@
     }
   }
 
-  &__image-box {
-    flex: 2;
+  &__image-box--start {
+    @include image-box(2);
     background-image: url('../assets/quiz-start.png');
-    background-size: cover;
-    background-position: center;
-    border-radius: 15px 15px 0 0;
+  }
 
-    @media #{$desktop-up} {
-      flex: 1;
-      border-radius: 15px 0 0 15px;
-    }
+  &__image-box--result {
+    @include image-box(1);
   }
 
   &__text-box {
@@ -48,6 +61,7 @@
     color: $c-text-primary;
 
     @media #{$desktop-up} {
+      padding: 30px;
       border-radius: 0 15px 15px 0;
       align-items: center;
       justify-content: center;
@@ -65,23 +79,37 @@
     }
   }
 
-  &__buttons {
-    width: 100%;
-    margin-bottom: 60px;
+  &__character-name {
+    font-size: 32px;
+    font-weight: bold;
   }
 
-  &__button {
+  &__buttons {
     width: 100%;
+  }
+
+  %button {
+    width: 100%;
+    margin: 10px 0;
     padding: 15px;
     border-radius: 15px;
-    background-color: $c-green;
-    color: #fff;
     font-size: 15px;
     cursor: pointer;
   }
 
+  &__button--primary {
+    @extend %button;
+    background-color: $c-green;
+    color: #fff;
+  }
+
+  &__button--secondary {
+    @extend %button;
+    background-color: #fff;
+    color: $c-green;
+  }
+
   &__button--action {
-    @extend .quiz__button;
     text-transform: uppercase;
   }
 }

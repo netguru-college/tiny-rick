@@ -7,7 +7,7 @@
         :key="question.id"
       />
     </form>
-    <QuizResult v-else />
+    <QuizResult v-else :result="result" />
   </div>
 </template>
 
@@ -25,8 +25,12 @@ export default {
 
   data() {
     return {
-      step: 0,
+      step: 1,
       questions: [],
+      result: { // for test
+        name: 'Morty',
+        img: 'https://rickandmortyapi.com/api/character/avatar/3.jpeg',
+      },
     };
   },
 
