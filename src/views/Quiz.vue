@@ -2,14 +2,29 @@
   <div class="quiz">
     <QuizStart
       v-if="step === 0"
-      :start-quiz="startQuiz"
+      :start-quiz="goToNextStep"
     />
-    <QuizForm
-      v-else-if="areQuestionsVisible"
-      :step="step"
-      :questions="questions"
-      :go-to-next-step="goToNextStep"
-    />
+    <form
+      v-else-if="isQuestionStep"
+      class="quiz__form"
+    >
+      <QuizQuestion
+        :question="questions[step-1]"
+        :step="step"
+        :go-to-next-step="goToNextStep"
+      >
+        <div
+          slot="wizard"
+          class="quiz__wizard"
+        >
+          <span class="quiz__wizard-text">{{ questionsLeft }} left</span>
+          <div
+            class="quiz__wizard--inner"
+            :style="innerWizardWidth"
+          />
+        </div>
+      </QuizQuestion>
+    </form>
     <QuizResult
       v-else
       :result="result"
@@ -20,15 +35,15 @@
 
 <script>
 import QuizStart from '@/components/QuizStart';
-import QuizForm from '@/components/QuizmForm';
+import QuizQuestion from '@/components/QuizQuestion';
 import QuizResult from '@/components/QuizResult';
-import { fetchQuestions } from '@/api';
 import { QUESTIONS } from '@/constants';
+// import { fetchQuestions } from '@/api';
 
 export default {
   components: {
     QuizStart,
-    QuizForm,
+    QuizQuestion,
     QuizResult,
   },
 
@@ -36,6 +51,7 @@ export default {
     return {
       step: 0,
       questions: QUESTIONS,
+      answers: [],
       result: {
         name: '',
         img: '',
@@ -44,8 +60,22 @@ export default {
   },
 
   computed: {
-    areQuestionsVisible() {
+    isQuestionStep() {
       return this.step <= this.questions.length;
+    },
+
+    questionsLeft() {
+      const questionsLeftCount = this.questions.length - this.step;
+      const questionsLeftPhrase = questionsLeftCount === 1 ? 'question' : 'questions';
+      return `${questionsLeftCount} ${questionsLeftPhrase}`;
+    },
+
+    innerWizardWidth() {
+      const oneStepWidth = 100 / this.questions.length;
+      const width = oneStepWidth * this.step;
+      return {
+        width: `${width}%`
+      };
     },
   },
 
@@ -60,20 +90,22 @@ export default {
     //   }
     // },
 
-    startQuiz() {
-      this.step = 1;
-    },
-
-    goToNextStep() {
-      if (this.step < this.questions.length) {
+    goToNextStep(answer) {
+      if (this.step === 0) {
         this.step += 1;
-      } else {
+      } else if (this.step < this.questions.length) {
+        this.answers.push(answer);
+        this.step += 1;
+      } else if (this.step !== 0) {
+        this.answers.push(answer);
         this.submitForm();
+        this.step += 1;
       }
     },
 
     goToStart() {
       this.step = 0;
+      this.answers = [];
       this.result = {
         name: '',
         img: '',
@@ -81,7 +113,7 @@ export default {
     },
 
     submitForm() {
-      console.log('submitForm');
+      console.log(this.answers);
     }
   },
 };

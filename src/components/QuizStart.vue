@@ -6,7 +6,7 @@
         <h1>Which character are you?</h1>
         <h2>Find out which character from the series you are</h2>
       </header>
-      <div class="quiz__buttons">
+      <div class="quiz__bottom-panel">
         <button
           class="quiz__button--primary quiz__button--action"
           @click="startQuiz"

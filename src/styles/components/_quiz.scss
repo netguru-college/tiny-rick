@@ -24,7 +24,7 @@
   padding: 15px;
 
   @media #{$tablet-up} {
-    padding: 15px 40px;;
+    padding: 20px 40px;;
   }
 
   &__container {
@@ -94,7 +94,7 @@
     font-weight: bold;
   }
 
-  &__buttons {
+  &__bottom-panel {
     width: 100%;
   }
 
@@ -123,6 +123,14 @@
     text-transform: uppercase;
   }
 
+  &__button--answer {
+    text-align: left;
+    display: inline-block;
+    label {
+      cursor: pointer;
+    }
+  }
+
   &__form {
     height: 100%;
     width: 100%;
@@ -135,6 +143,12 @@
     align-items: center;
     justify-content: space-between;
     flex: 1;
+
+    @media #{$desktop-up} {
+      padding: 30px;
+      border-radius: 0 15px 15px 0;
+      background-color: #fff;
+    }
   }
 
   &__question-info {
@@ -159,6 +173,10 @@
     border-radius: 15px;
     background-color: #fff;
     overflow: hidden;
+
+    @media #{$desktop-up} {
+      background-color: $c-fill-light;
+    }
   }
 
   &__wizard-text {
@@ -173,32 +191,31 @@
     left: 0;
     background-color: $c-green;
     border-radius: inherit;
+    transition : width 0.7s ease-out;
   }
 
   &__question {
     font-size: 30px;
-  }
 
-  &__answers {
-    width: 100%;
-    margin-bottom: 20px;
+    @media #{$desktop-up} {
+      color: $c-text-primary;
+    }
   }
 
   &__answer--text {
     @extend %button;
+    cursor: text;
+    border: 2px solid $c-fill-light;
+    outline: none;
   }
 
-  &__answer--select {
-    width: 100%;
-    margin: 15px 0;
-    padding: 15px 10px 15px 0;
-    border-radius: 15px;
-    background-color: $c-green;
-    color: #fff;
-    cursor: pointer;
+  &__answer--warning {
+    border: 1px solid red;
+    box-shadow: 0 0 3px red;
+  }
 
-    input {
-      visibility: hidden;
-    }
+  input[type="radio"]{
+    opacity: 0;
+    cursor: pointer;
   }
 }
