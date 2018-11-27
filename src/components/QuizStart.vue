@@ -9,7 +9,7 @@
       <div class="quiz__bottom-panel">
         <button
           class="quiz__button--primary quiz__button--action"
-          @click="startQuiz"
+          @click="goToNextStep"
         >
           Start
         </button>
@@ -21,7 +21,7 @@
 <script>
 export default {
   props: {
-    startQuiz: {
+    goToNextStep: {
       type: Function,
       required: true,
     },

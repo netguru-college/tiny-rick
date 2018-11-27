@@ -12,12 +12,12 @@
 }
 
 .quiz {
+  display: flex;
   position: absolute;
   top: $h-header;
   bottom: 0;
   left: 0;
   right: 0;
-  display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -28,10 +28,11 @@
   }
 
   &__container {
+    display: flex;
     height: 100%;
     width: 100%;
     min-width: 300px;
-    display: flex;
+    max-width: 1000px;
     flex-direction: column;
     overflow: auto;
 
@@ -61,10 +62,10 @@
 
   &__text-box {
     display: flex;
+    min-height: 170px;
+    flex: 1;
     flex-direction: column;
     justify-content: space-around;
-    flex: 1;
-    min-height: 170px;
     border-radius: 0 0 15px 15px;
     padding: 15px 10px;
     background-color: #fff;
@@ -123,26 +124,19 @@
     text-transform: uppercase;
   }
 
-  &__button--answer {
-    text-align: left;
-    display: inline-block;
-    label {
-      cursor: pointer;
-    }
-  }
-
   &__form {
     height: 100%;
     width: 100%;
     min-width: 300px;
+    max-width: 1000px;
   }
 
   &__question-box {
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    flex: 1;
 
     @media #{$desktop-up} {
       padding: 30px;
@@ -163,13 +157,13 @@
   }
 
   &__wizard {
-    position: relative;
     display: flex;
+    position: relative;
     height: 25px;
     width: 100%;
-    margin-bottom: 30px;
     align-items: center;
     justify-content: center;
+    margin-bottom: 30px;
     border-radius: 15px;
     background-color: #fff;
     overflow: hidden;
@@ -189,9 +183,9 @@
     height: 100%;
     top: 0;
     left: 0;
-    background-color: $c-green;
     border-radius: inherit;
-    transition : width 0.7s ease-out;
+    background-color: $c-green;
+    transition: width 0.7s ease-out;
   }
 
   &__question {
@@ -202,8 +196,27 @@
     }
   }
 
+  &__answer {
+    width: 100%;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 15px;
+  }
+
+  &__answer--select {
+    display: inline-block;
+    text-align: left;
+    background-color: $c-green;
+    color: #fff;
+    cursor: pointer;
+
+    label {
+      cursor: pointer;
+    }
+  }
+
   &__answer--text {
-    @extend %button;
     cursor: text;
     border: 2px solid $c-fill-light;
     outline: none;
@@ -211,7 +224,7 @@
 
   &__answer--warning {
     border: 1px solid red;
-    box-shadow: 0 0 3px red;
+    box-shadow: inset 0 0 3px red;
   }
 
   input[type="radio"]{

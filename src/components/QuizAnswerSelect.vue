@@ -3,7 +3,7 @@
     <label
       v-for="answer in question.answers"
       :key="answer.id"
-      class="quiz__button--primary quiz__button--answer"
+      class="quiz__answer quiz__answer--select"
     >
       <input
         v-model="selectedAnswer"

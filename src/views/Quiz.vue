@@ -2,7 +2,7 @@
   <div class="quiz">
     <QuizStart
       v-if="step === 0"
-      :start-quiz="goToNextStep"
+      :go-to-next-step="goToNextStep"
     />
     <form
       v-else-if="isQuestionStep"
@@ -74,7 +74,7 @@ export default {
       const oneStepWidth = 100 / this.questions.length;
       const width = oneStepWidth * this.step;
       return {
-        width: `${width}%`
+        width: `${width}%`,
       };
     },
   },
@@ -94,10 +94,10 @@ export default {
       if (this.step === 0) {
         this.step += 1;
       } else if (this.step < this.questions.length) {
-        this.answers.push(answer);
+        this.answers = [...this.answers, answer];
         this.step += 1;
       } else if (this.step !== 0) {
-        this.answers.push(answer);
+        this.answers = [...this.answers, answer];
         this.submitForm();
         this.step += 1;
       }
@@ -113,8 +113,9 @@ export default {
     },
 
     submitForm() {
+      // to do some things with answers and get result
       console.log(this.answers);
-    }
+    },
   },
 };
 </script>

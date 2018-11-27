@@ -3,7 +3,7 @@
     <input
       v-model="answer"
       type="text"
-      class="quiz__answer--text"
+      class="quiz__answer quiz__answer--text"
       :class="showWarning && 'quiz__answer--warning'"
       :name="question.value"
     >
