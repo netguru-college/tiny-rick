@@ -1,6 +1,6 @@
 <template>
   <div class="quiz__container">
-    <div class="quiz__image-box--start" />
+    <div class="quiz__image-box quiz__image-box--flexible" />
     <div class="quiz__text-box">
       <header class="quiz__header">
         <h1>Which character are you?</h1>
@@ -8,8 +8,8 @@
       </header>
       <div class="quiz__bottom-panel">
         <button
-          class="quiz__button--primary quiz__button--action"
-          @click="goToNextStep"
+          class="quiz__button quiz__button--primary"
+          @click="$emit('goToNextStep', null)"
         >
           Start
         </button>
@@ -17,14 +17,3 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  props: {
-    goToNextStep: {
-      type: Function,
-      required: true,
-    },
-  },
-};
-</script>

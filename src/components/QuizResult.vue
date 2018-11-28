@@ -1,9 +1,9 @@
 <template>
   <div class="quiz__container">
-    <div
-      class="quiz__image-box--result"
-      :style="imageBoxStyle"
-    />
+    <img
+      class="quiz__image-box quiz__image-box--fixed"
+      :src="result.img || defaultImageUrl"
+    >
     <div class="quiz__text-box">
       <header class="quiz__header">
         <h1 class="quiz__character-name">{{ result.name || 'You\'re one and only.' }}</h1>
@@ -11,14 +11,14 @@
       </header>
       <div class="quiz__bottom-panel">
         <button
-          class=" quiz__button--primary quiz__button--action"
-          @click="goToStart"
+          class="quiz__button quiz__button--primary"
+          @click="$emit('goToStart')"
         >
           Start again
         </button>
         <router-link to="/">
           <button
-            class="quiz__button--secondary quiz__button--action"
+            class="quiz__button quiz__button--secondary"
           >
             Back to home
           </button>
@@ -37,18 +37,12 @@ export default {
       type: Object,
       required: true,
     },
-    goToStart: {
-      type: Function,
-      required: true,
-    },
   },
 
-  computed: {
-    imageBoxStyle() {
-      return {
-        backgroundImage: `url(${this.result.img || DEFAULT_IMAGE_URL})`
-      };
-    },
+  data() {
+    return {
+      defaultImageUrl: DEFAULT_IMAGE_URL,
+    };
   },
 };
 </script>

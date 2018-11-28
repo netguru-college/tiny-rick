@@ -4,12 +4,12 @@
       v-model="answer"
       type="text"
       class="quiz__answer quiz__answer--text"
-      :class="showWarning && 'quiz__answer--warning'"
+      :class="{ 'quiz__answer--warning': showWarning }"
       :name="question.value"
     >
     <button
-      class="quiz__button--primary quiz__button--action"
-      @click.prevent="submitAnswer"
+      class="quiz__button quiz__button--primary"
+      @click.prevent="handleClick"
     >
       Next
     </button>
@@ -19,10 +19,6 @@
 <script>
 export default {
   props: {
-    goToNextStep: {
-      type: Function,
-      required: true,
-    },
     question: {
       type: Object,
       required: true,
@@ -43,11 +39,9 @@ export default {
   },
 
   methods: {
-    submitAnswer() {
+    handleClick() {
       if (this.answer) {
-        return this.goToNextStep({
-          [this.question.id]: this.answer,
-        });
+        return this.$emit('submitAnswer', this.answer);
       }
       return this.wasSubmitted = true;
     },

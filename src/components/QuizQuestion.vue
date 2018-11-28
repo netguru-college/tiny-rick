@@ -1,16 +1,16 @@
 <template>
   <div class="quiz__container">
-    <div class="quiz__image-box--form" />
+    <div class="quiz__image-box quiz__image-box--hideable" />
     <div class="quiz__question-box">
       <div class="quiz__question-info">
         <h1 class="quiz__step">Question {{ step }}</h1>
-        <slot name="wizard" />
+        <slot />
         <span class="quiz__question">{{ question.value }}</span>
       </div>
       <component
-        :is="answerType"
+        :is="answerComponent"
         :question="question"
-        :go-to-next-step="goToNextStep"
+        @submitAnswer="submitAnswer"
       />
     </div>
   </div>
@@ -35,15 +35,21 @@ export default {
       type: Number,
       required: true,
     },
-    goToNextStep: {
-      type: Function,
-      required: true,
-    },
   },
 
   computed: {
-    answerType() {
+    answerComponent() {
       return this.question.type === 'text' ? QuizAnswerText : QuizAnswerSelect;
+    },
+  },
+
+  methods: {
+    submitAnswer(answer) {
+      if (answer) {
+        this.$emit('goToNextStep', {
+          [this.question.id]: answer,
+        });
+      }
     },
   },
 };

@@ -1,18 +1,17 @@
 <template>
   <div class="quiz__bottom-panel">
     <label
-      v-for="answer in question.answers"
-      :key="answer.id"
+      v-for="option in question.options"
+      :key="option.id"
       class="quiz__answer quiz__answer--select"
     >
       <input
-        v-model="selectedAnswer"
         type="radio"
         :name="question.value"
-        :value="answer.value"
-        @change="submitAnswer"
+        :value="option.value"
+        @change="$emit('submitAnswer', $event.target.value)"
       >
-      {{ answer.value }}
+      {{ option.value }}
     </label>
   </div>
 </template>
@@ -20,29 +19,9 @@
 <script>
 export default {
   props: {
-    goToNextStep: {
-      type: Function,
-      required: true,
-    },
     question: {
       type: Object,
       required: true,
-    },
-  },
-
-  data() {
-    return {
-      selectedAnswer: '',
-    };
-  },
-
-  methods: {
-    submitAnswer() {
-      if (this.selectedAnswer) {
-        this.goToNextStep({
-          [this.question.id]: this.selectedAnswer,
-        });
-      }
     },
   },
 };

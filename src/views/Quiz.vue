@@ -2,7 +2,7 @@
   <div class="quiz">
     <QuizStart
       v-if="step === 0"
-      :go-to-next-step="goToNextStep"
+      @goToNextStep="goToNextStep"
     />
     <form
       v-else-if="isQuestionStep"
@@ -11,12 +11,9 @@
       <QuizQuestion
         :question="questions[step-1]"
         :step="step"
-        :go-to-next-step="goToNextStep"
+        @goToNextStep="goToNextStep"
       >
-        <div
-          slot="wizard"
-          class="quiz__wizard"
-        >
+        <div class="quiz__wizard">
           <span class="quiz__wizard-text">{{ questionsLeft }} left</span>
           <div
             class="quiz__wizard--inner"
@@ -28,7 +25,7 @@
     <QuizResult
       v-else
       :result="result"
-      :go-to-start="goToStart"
+      @goToStart="goToStart"
     />
   </div>
 </template>
@@ -91,15 +88,12 @@ export default {
     // },
 
     goToNextStep(answer) {
-      if (this.step === 0) {
-        this.step += 1;
-      } else if (this.step < this.questions.length) {
+      this.step += 1;
+      if (answer) {
         this.answers = [...this.answers, answer];
-        this.step += 1;
-      } else if (this.step !== 0) {
-        this.answers = [...this.answers, answer];
+      }
+      if (!this.isQuestionStep) {
         this.submitForm();
-        this.step += 1;
       }
     },
 
