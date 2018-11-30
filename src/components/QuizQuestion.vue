@@ -46,7 +46,7 @@ export default {
   methods: {
     submitAnswer(answer) {
       if (answer) {
-        this.$emit('goToNextStep', {
+        this.$emit('submitAnswer', {
           [this.question.id]: answer,
         });
       }

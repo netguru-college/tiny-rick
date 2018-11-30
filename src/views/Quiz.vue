@@ -11,7 +11,7 @@
       <QuizQuestion
         :question="questions[step-1]"
         :step="step"
-        @goToNextStep="goToNextStep"
+        @submitAnswer="goToNextStep"
       >
         <div class="quiz__wizard">
           <span class="quiz__wizard-text">{{ questionsLeft }} left</span>
