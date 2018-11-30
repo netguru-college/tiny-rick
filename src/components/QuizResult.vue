@@ -2,7 +2,7 @@
   <div class="quiz__container">
     <img
       class="quiz__image-box quiz__image-box--fixed"
-      :src="result.img || defaultImageUrl"
+      :src="imageUrl"
     >
     <div class="quiz__text-box">
       <header class="quiz__header">
@@ -39,10 +39,10 @@ export default {
     },
   },
 
-  data() {
-    return {
-      defaultImageUrl: DEFAULT_IMAGE_URL,
-    };
+  computed: {
+    imageUrl() {
+      return this.result.img || DEFAULT_IMAGE_URL;
+    },
   },
 };
 </script>
