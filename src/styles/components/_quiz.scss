@@ -1,0 +1,236 @@
+@mixin background-image {
+  background-image: url('../assets/quiz-start.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.quiz {
+  display: flex;
+  position: absolute;
+  top: $h-header;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 15px;
+
+  @media #{$tablet-up} {
+    padding: 20px 40px;;
+  }
+
+  &__container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    min-width: 300px;
+    max-width: 1000px;
+    flex-direction: column;
+    overflow: auto;
+
+    @media #{$desktop-up} {
+      flex-direction: row;
+    }
+  }
+
+  &__image-box {
+    border-radius: 15px 15px 0 0;
+
+    @media #{$desktop-up} {
+      border-radius: 15px 0 0 15px;
+    }
+  }
+
+  &__image-box--flexible {
+    flex: 2;
+    @include background-image;
+
+    @media #{$desktop-up} {
+      flex: 1;
+    }
+  }
+
+  &__image-box--fixed {
+    flex: 1;
+    object-fit: cover;
+  }
+
+  &__image-box--hideable {
+    display: none;
+
+    @media #{$desktop-up} {
+      display: block;
+      flex: 1;
+      @include background-image;
+    }
+  }
+
+  &__text-box {
+    display: flex;
+    min-height: 170px;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 0 0 15px 15px;
+    padding: 15px 10px;
+    background-color: #fff;
+    color: $c-text-primary;
+
+    @media #{$desktop-up} {
+      padding: 30px;
+      border-radius: 0 15px 15px 0;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h2 {
+      color: $c-text-secondary;
+    }
+  }
+
+  &__header {
+    @media #{$tablet-up} {
+      margin: auto 0;
+      text-align: center;
+    }
+  }
+
+  &__character-name {
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  &__bottom-panel {
+    width: 100%;
+  }
+
+  &__button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 15px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  &__button--primary {
+    background-color: $c-green;
+    color: #fff;
+  }
+
+  &__button--secondary {
+    background-color: #fff;
+    color: $c-green;
+  }
+
+
+  &__form {
+    height: 100%;
+    width: 100%;
+    min-width: 300px;
+    max-width: 1000px;
+  }
+
+  &__question-box {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    @media #{$desktop-up} {
+      padding: 30px;
+      border-radius: 0 15px 15px 0;
+      background-color: #fff;
+    }
+  }
+
+  &__question-info {
+    width: 100%;
+    text-align: center;
+  }
+
+  &__step {
+    color: $c-text-placeholder;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  &__wizard {
+    display: flex;
+    position: relative;
+    height: 25px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    background-color: #fff;
+    overflow: hidden;
+
+    @media #{$desktop-up} {
+      background-color: $c-fill-light;
+    }
+  }
+
+  &__wizard-text {
+    color: $c-text-primary;
+    z-index: 1;
+  }
+
+  &__wizard--inner {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: inherit;
+    background-color: $c-green;
+    transition: width 0.7s ease-out;
+  }
+
+  &__question {
+    font-size: 30px;
+
+    @media #{$desktop-up} {
+      color: $c-text-primary;
+    }
+  }
+
+  &__answer {
+    width: 100%;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 15px;
+  }
+
+  &__answer--select {
+    display: inline-block;
+    text-align: left;
+    background-color: $c-green;
+    color: #fff;
+    cursor: pointer;
+
+    label {
+      cursor: pointer;
+    }
+  }
+
+  &__answer--text {
+    cursor: text;
+    border: 2px solid $c-fill-light;
+    outline: none;
+  }
+
+  &__answer--warning {
+    border: 1px solid $c-red;
+    box-shadow: inset 0 0 3px $c-red;
+  }
+
+  input[type="radio"]{
+    opacity: 0;
+    cursor: pointer;
+  }
+}
