@@ -35,9 +35,9 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      step: 'quizStep'
-    }),
+    ...mapState('quiz', [
+      'step',
+    ]),
 
     answerComponent() {
       return this.question.type === 'text' ? QuizAnswerText : QuizAnswerSelect;

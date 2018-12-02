@@ -1,7 +1,7 @@
 <template>
   <div class="quiz">
     <QuizStart
-      v-if="quizStep === 0"
+      v-if="step === 0"
       @goToNextStep="goToNextStep"
     />
     <form
@@ -9,14 +9,14 @@
       class="quiz__form"
     >
       <QuizQuestion
-        :question="questions[quizStep-1]"
+        :question="questions[step-1]"
         @submitAnswer="goToNextStep"
       >
         <div class="quiz__wizard">
           <span class="quiz__wizard-text">{{ questionsLeft }} left</span>
           <div
             class="quiz__wizard--inner"
-            :style="innerWizardWidth"
+            :style="innerWizardStyle"
           />
         </div>
       </QuizQuestion>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from 'vuex';
+import { mapState, mapGetters, mapActions, mapMutations } from 'vuex';
 import QuizStart from '@/components/QuizStart';
 import QuizQuestion from '@/components/QuizQuestion';
 import QuizResult from '@/components/QuizResult';
@@ -41,27 +41,26 @@ export default {
   },
 
   computed: {
-    ...mapState([
-      'quizStep',
+    ...mapState('quiz', [
+      'step',
       'questions',
       'answers',
     ]),
 
-    isQuestionStep() {
-      return this.quizStep <= this.questions.length;
-    },
+    ...mapGetters('quiz', [
+      'isQuestionStep',
+      'questionsLeftCount',
+      'wizardWidth',
+    ]),
 
     questionsLeft() {
-      const questionsLeftCount = this.questions.length - this.quizStep;
-      const questionsLeftPhrase = questionsLeftCount === 1 ? 'question' : 'questions';
-      return `${questionsLeftCount} ${questionsLeftPhrase}`;
+      const questionsLeftPhrase = this.questionsLeftCount === 1 ? 'question' : 'questions';
+      return `${this.questionsLeftCount} ${questionsLeftPhrase}`;
     },
 
-    innerWizardWidth() {
-      const oneStepWidth = 100 / this.questions.length;
-      const width = oneStepWidth * this.quizStep;
+    innerWizardStyle() {
       return {
-        width: `${width}%`,
+        width: `${this.wizardWidth}%`,
       };
     },
   },
@@ -71,18 +70,18 @@ export default {
   },
 
   methods: {
-    ...mapActions([
+    ...mapActions('quiz', [
       'loadQuestions',
       'submitForm',
     ]),
 
-    ...mapMutations([
+    ...mapMutations('quiz', [
       'setStep',
       'addAnswer',
     ]),
 
     goToNextStep(answer) {
-      this.setStep(this.quizStep + 1);
+      this.setStep(this.step + 1);
       if (answer) {
         this.addAnswer(answer);
       }

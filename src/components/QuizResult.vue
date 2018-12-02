@@ -34,7 +34,7 @@ import { DEFAULT_IMAGE_URL } from '@/constants';
 
 export default {
   computed: {
-    ...mapState([
+    ...mapState('quiz', [
       'result',
     ]),
 
@@ -44,7 +44,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations([
+    ...mapMutations('quiz', [
       'resetForm',
     ]),
   },
