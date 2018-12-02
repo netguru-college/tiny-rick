@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import QuizAnswerSelect from './QuizAnswerSelect';
 import QuizAnswerText from './QuizAnswerText';
 
@@ -31,13 +32,13 @@ export default {
       type: Object,
       required: true,
     },
-    step: {
-      type: Number,
-      required: true,
-    },
   },
 
   computed: {
+    ...mapState({
+      step: 'quizStep'
+    }),
+
     answerComponent() {
       return this.question.type === 'text' ? QuizAnswerText : QuizAnswerSelect;
     },

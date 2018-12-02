@@ -1,7 +1,7 @@
 <template>
   <div class="quiz">
     <QuizStart
-      v-if="step === 0"
+      v-if="quizStep === 0"
       @goToNextStep="goToNextStep"
     />
     <form
@@ -9,8 +9,7 @@
       class="quiz__form"
     >
       <QuizQuestion
-        :question="questions[step-1]"
-        :step="step"
+        :question="questions[quizStep-1]"
         @submitAnswer="goToNextStep"
       >
         <div class="quiz__wizard">
@@ -25,17 +24,16 @@
     <QuizResult
       v-else
       :result="result"
-      @goToStart="goToStart"
+      @goToStart="resetForm"
     />
   </div>
 </template>
 
 <script>
+import { mapState, mapActions, mapMutations } from 'vuex';
 import QuizStart from '@/components/QuizStart';
 import QuizQuestion from '@/components/QuizQuestion';
 import QuizResult from '@/components/QuizResult';
-import { QUESTIONS } from '@/constants';
-// import { fetchQuestions } from '@/api';
 
 export default {
   components: {
@@ -44,71 +42,57 @@ export default {
     QuizResult,
   },
 
-  data() {
-    return {
-      step: 0,
-      questions: QUESTIONS,
-      answers: [],
-      result: {
-        name: '',
-        img: '',
-      },
-    };
-  },
-
   computed: {
+    ...mapState([
+      'quizStep',
+      'questions',
+      'answers',
+      'result',
+    ]),
+
     isQuestionStep() {
-      return this.step <= this.questions.length;
+      return this.quizStep <= this.questions.length;
     },
 
     questionsLeft() {
-      const questionsLeftCount = this.questions.length - this.step;
+      const questionsLeftCount = this.questions.length - this.quizStep;
       const questionsLeftPhrase = questionsLeftCount === 1 ? 'question' : 'questions';
       return `${questionsLeftCount} ${questionsLeftPhrase}`;
     },
 
     innerWizardWidth() {
       const oneStepWidth = 100 / this.questions.length;
-      const width = oneStepWidth * this.step;
+      const width = oneStepWidth * this.quizStep;
       return {
         width: `${width}%`,
       };
     },
   },
 
+  mounted() {
+    this.loadQuestions();
+  },
+
   methods: {
-    // async loadQuestions() {
-    //   try {
-    //     const { questions } = await fetchQuestions();
-    //     this.questions = questions || [];
-    //   } catch (error) {
-    //     this.questions = [];
-    //     console.error(error);
-    //   }
-    // },
+    ...mapActions([
+      'loadQuestions',
+      'submitForm',
+      'resetForm',
+    ]),
+
+    ...mapMutations([
+      'setStep',
+      'addAnswer',
+    ]),
 
     goToNextStep(answer) {
-      this.step += 1;
+      this.setStep(this.quizStep + 1);
       if (answer) {
-        this.answers = [...this.answers, answer];
+        this.addAnswer(answer);
       }
       if (!this.isQuestionStep) {
         this.submitForm();
       }
-    },
-
-    goToStart() {
-      this.step = 0;
-      this.answers = [];
-      this.result = {
-        name: '',
-        img: '',
-      };
-    },
-
-    submitForm() {
-      // to do some things with answers and get result
-      console.log(this.answers);
     },
   },
 };
