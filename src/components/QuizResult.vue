@@ -12,7 +12,7 @@
       <div class="quiz__bottom-panel">
         <button
           class="quiz__button quiz__button--primary"
-          @click="$emit('goToStart')"
+          @click="resetForm"
         >
           Start again
         </button>
@@ -29,20 +29,24 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
 import { DEFAULT_IMAGE_URL } from '@/constants';
 
 export default {
-  props: {
-    result: {
-      type: Object,
-      required: true,
-    },
-  },
-
   computed: {
+    ...mapState([
+      'result',
+    ]),
+
     imageUrl() {
       return this.result.img || DEFAULT_IMAGE_URL;
     },
+  },
+
+  methods: {
+    ...mapMutations([
+      'resetForm',
+    ]),
   },
 };
 </script>

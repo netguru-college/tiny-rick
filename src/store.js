@@ -30,13 +30,17 @@ export default new Vuex.Store({
     setResult(state, result) {
       state.result = result;
     },
-    resetAnswers(state) {
+    resetForm(state) {
+      state.quizStep = 0;
       state.answers = [];
+      state.result = {
+        name: '',
+        img: '',
+      };
     },
   },
 
   actions: {
-
     async loadQuestions({ commit }) {
       try {
         const { questions = QUESTIONS } = await fetchQuestions(); // to do
@@ -54,15 +58,6 @@ export default new Vuex.Store({
       } catch (error) {
         console.log(error);
       }
-    },
-
-    resetForm({ commit }) {
-      commit('setStep', 0);
-      commit('resetAnswers');
-      commit('setResult', {
-        name: '',
-        img: '',
-      });
     },
   }
 });

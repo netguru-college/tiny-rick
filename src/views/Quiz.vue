@@ -23,8 +23,6 @@
     </form>
     <QuizResult
       v-else
-      :result="result"
-      @goToStart="resetForm"
     />
   </div>
 </template>
@@ -47,7 +45,6 @@ export default {
       'quizStep',
       'questions',
       'answers',
-      'result',
     ]),
 
     isQuestionStep() {
@@ -77,7 +74,6 @@ export default {
     ...mapActions([
       'loadQuestions',
       'submitForm',
-      'resetForm',
     ]),
 
     ...mapMutations([
