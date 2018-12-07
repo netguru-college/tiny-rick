@@ -4,9 +4,9 @@
       :episode="episode"
       :name="name"
     >
-      <div class="episode-details__info">
-        <span class="episode-details__label">Air date</span>
-        <span class="episode-details__value">{{ airDate }}</span>
+      <div class="episode-info">
+        <span class="episode-info__label">Air date</span>
+        <span class="episode-info__value">{{ airDate }}</span>
       </div>
     </EpisodeItem>
   </div>

@@ -34,8 +34,7 @@
 import QuizStart from '@/components/QuizStart';
 import QuizQuestion from '@/components/QuizQuestion';
 import QuizResult from '@/components/QuizResult';
-import { QUESTIONS } from '@/constants';
-// import { fetchQuestions } from '@/api';
+import { fetchQuestions } from '@/api';
 
 export default {
   components: {
@@ -47,7 +46,7 @@ export default {
   data() {
     return {
       step: 0,
-      questions: QUESTIONS,
+      questions: [],
       answers: [],
       result: {
         name: '',
@@ -62,30 +61,32 @@ export default {
     },
 
     questionsLeft() {
-      const questionsLeftCount = this.questions.length - this.step;
+      const questionsLeftCount = this.questions.length - this.step + 1;
       const questionsLeftPhrase = questionsLeftCount === 1 ? 'question' : 'questions';
       return `${questionsLeftCount} ${questionsLeftPhrase}`;
     },
 
     innerWizardWidth() {
       const oneStepWidth = 100 / this.questions.length;
-      const width = oneStepWidth * this.step;
+      const width = oneStepWidth * (this.step - 1);
       return {
         width: `${width}%`,
       };
     },
   },
 
+  created() {
+    this.loadQuestions();
+  },
+
   methods: {
-    // async loadQuestions() {
-    //   try {
-    //     const { questions } = await fetchQuestions();
-    //     this.questions = questions || [];
-    //   } catch (error) {
-    //     this.questions = [];
-    //     console.error(error);
-    //   }
-    // },
+    async loadQuestions() {
+      try {
+        this.questions = await fetchQuestions() || [];
+      } catch (error) {
+        console.error(error);
+      }
+    },
 
     goToNextStep(answer) {
       this.step += 1;
