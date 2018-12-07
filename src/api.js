@@ -45,3 +45,14 @@ export const fetchQuestions = () => {
   return fetch(`${API_URL}/questions`)
     .then(data => data.json());
 };
+
+export const postQuizAnswers = (answers) => {
+  return fetch(`${API_URL}/quiz`, {
+    method: 'POST',
+    body: JSON.stringify(answers),
+    headers:{
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(data => data.json());
+};

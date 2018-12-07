@@ -23,8 +23,9 @@
       </QuizQuestion>
     </form>
     <QuizResult
-      v-else
-      :result="result"
+      v-else-if="result"
+      :character-name="result.name"
+      :character-image="result.image"
       @goToStart="goToStart"
     />
   </div>
@@ -34,7 +35,7 @@
 import QuizStart from '@/components/QuizStart';
 import QuizQuestion from '@/components/QuizQuestion';
 import QuizResult from '@/components/QuizResult';
-import { fetchQuestions } from '@/api';
+import { fetchQuestions, postQuizAnswers } from '@/api';
 
 export default {
   components: {
@@ -48,10 +49,7 @@ export default {
       step: 0,
       questions: [],
       answers: [],
-      result: {
-        name: '',
-        img: '',
-      },
+      result: null,
     };
   },
 
@@ -101,15 +99,15 @@ export default {
     goToStart() {
       this.step = 0;
       this.answers = [];
-      this.result = {
-        name: '',
-        img: '',
-      };
+      this.result = null;
     },
 
-    submitForm() {
-      // to do some things with answers and get result
-      console.log(this.answers);
+    async submitForm() {
+      try {
+        this.result = await postQuizAnswers(this.answers)
+      } catch (error) {
+        console.error(error)
+      }
     },
   },
 };

@@ -47,7 +47,8 @@ export default {
     submitAnswer(answer) {
       if (answer) {
         this.$emit('submitAnswer', {
-          [this.question.id]: answer,
+          questionId: this.question.id,
+          answer,
         });
       }
     },
