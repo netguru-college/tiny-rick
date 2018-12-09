@@ -9,6 +9,7 @@
 
     <button
       class="header__nav-trigger"
+      data-test="burger"
       @click="toggleNav"
     >
       <CloseIcon v-if="isNavVisible" />
@@ -16,6 +17,7 @@
     </button>
 
     <nav
+      data-test="nav"
       class="header__nav"
       :class="{
         'is-visible': isNavVisible
@@ -58,6 +60,7 @@ export default {
   methods: {
     toggleNav() {
       this.isNavVisible = !this.isNavVisible;
+      this.$emit('navToggled', this.isNavVisible);
     },
   },
 };

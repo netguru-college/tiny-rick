@@ -40,8 +40,8 @@
 import EpisodesList from '@/components/EpisodesList';
 import EpisodeItem from '@/components/EpisodeItem';
 import SearchIcon from '@/assets/icon-search.svg';
-import { fetchEpisodes } from '@/api';
 import debounce from 'lodash.debounce';
+import { mapState, mapGetters, mapActions } from 'vuex';
 
 export default {
   components: {
@@ -50,24 +50,9 @@ export default {
     SearchIcon,
   },
 
-  data() {
-    return {
-      isLoading: true,
-      currentPage: 0,
-      info: {},
-      episodes: [],
-      searchText: '',
-    };
-  },
-
   computed: {
-    isInitiallyLoading() {
-      return this.isLoading && this.currentPage === 1;
-    },
-
-    isLoadingMoreDisabled() {
-      return this.isLoading || this.currentPage >= this.info.pages;
-    },
+    ...mapState('episodes', ['episodes']),
+    ...mapGetters('episodes', ['isInitiallyLoading', 'isLoadingMoreDisabled']),
   },
 
   mounted() {
@@ -75,26 +60,10 @@ export default {
   },
 
   methods: {
-    async loadEpisodes() {
-      this.currentPage += 1;
-
-      try {
-        const { info, results } = await fetchEpisodes({ page: this.currentPage, name: this.searchText });
-        this.isLoading = false;
-        this.info = info;
-        this.episodes = [...this.episodes, ...results];
-      } catch (error) {
-        this.isLoading = false;
-        console.error(error);
-      }
-    },
+    ...mapActions('episodes', ['loadEpisodes', 'searchEpisode']),
 
     search: debounce(async function(text) {
-      this.searchText = text;
-      this.currentPage = 0;
-      this.episodes = [];
-
-      this.loadEpisodes();
+      await this.searchEpisode(text)
     }, 300),
   }
 };

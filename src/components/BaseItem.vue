@@ -3,16 +3,28 @@
     <header class="base-item__header">
       <img
         v-if="img"
+        data-test="img"
         class="base-item__img"
         :src="img"
       >
       <div class="base-item__header-content">
-        <h3 class="base-item__title">{{ title }}</h3>
-        <span class="base-item__subtitle">{{ subtitle }}</span>
+        <h3
+          class="base-item__title"
+          data-test="title"
+        >
+          {{ title }}
+        </h3>
+        <span
+          class="base-item__subtitle"
+          data-test="subtitle"
+        >
+          {{ subtitle }}
+        </span>
       </div>
     </header>
     <p
       v-if="hasSlot"
+      data-test="content"
       class="base-item__content"
     >
       <slot />
